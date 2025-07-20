@@ -9,10 +9,10 @@ jobs:
   echo-goodbye-job:
     runs-on: ubuntu-latest
     steps:
-      - name: "Failed Step"
+      - name: "Success Step"
         run: | #vertical line or pipe is required to define multiline commands
-          echo "This job will fail"
-          exit 1
+          echo "This job will be a success"
+          exit 0
       - name: Say goodbye
         run: echo "Goodbye"
           
