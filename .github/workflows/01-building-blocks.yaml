@@ -1,5 +1,5 @@
 name: 01- Building Blocks  # workflow name
-on: push # trigger point
+on: workflow_dispatch # trigger point
 jobs: # jobs which is an object. Every keys of a job is a job-name. Value of each key is the job definition
   echo-hello-job:
     runs-on: ubuntu-latest #platform in which the job should run

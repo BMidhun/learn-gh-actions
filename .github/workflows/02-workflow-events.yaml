@@ -3,7 +3,7 @@ on:
     - push
     - pull_request
     - schedule #cron-job
-    - workflow_dispatch
+    - workflow_dispatch # manual trigger from the Github Actions UI in Github website (Run Workflow)
 jobs:
     echo:
         runs-on: ubuntu-latest
