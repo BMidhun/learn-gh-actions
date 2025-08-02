@@ -6,6 +6,6 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - name: "Go to the code"
-              run: cd ./simple-react-app/
+              run: ls
             - name: "Printing Folders"
               run: ls
