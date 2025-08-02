@@ -4,6 +4,9 @@ on:
 jobs:
     build:
         runs-on: ubuntu-latest
+        defaults:
+          run: 
+            working-directory: simple-react-app
         steps:
             - name: "Checkout code"
               uses: actions/checkout@v3 # The uses command will help to avoid execute multiple runs (actions/checkout@v3 this is like a template code helping to checkout to our codebase in virtual machine)
@@ -18,6 +21,6 @@ jobs:
               with:
                 node-version: '20.x'
             - name: "Go to project folder and Install dependencies"
-              working-directory: simple-react-app #This will set the current working directory
+              #working-directory: simple-react-app #This will set the current working directory. Instead of setting working-directory in a step, we can set it as a default of a job
               run: npm ci #clean install packages by removing existing node_modules (only works if there is a package.json)
-              
+
