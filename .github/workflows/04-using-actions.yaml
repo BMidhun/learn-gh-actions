@@ -19,4 +19,5 @@ jobs:
                 node-version: '20.x'
             - name: "Go to project folder and Install dependencies"
               working-directory: simple-react-app #This will set the current working directory
-              run: npm ci
+              run: npm ci #clean install packages by removing existing node_modules (only works if there is a package.json)
+              
