@@ -5,7 +5,11 @@ jobs:
     build:
         runs-on: ubuntu-latest
         steps:
-            - name: "Go to the code"
-              run: ls
+            - name: "Checkout code"
+              uses: actions/checkout@v3
+            
             - name: "Printing Folders"
-              run: ls
+              run: |
+                cd ${{ github.workspace }}
+                echo "Project Folder : $(pwd)"
+                ls -la 
