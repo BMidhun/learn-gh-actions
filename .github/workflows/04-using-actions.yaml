@@ -1,0 +1,11 @@
+name: 04-Using-Actions
+on:
+    push
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - name: "Go to the code"
+              run: cd ./simple-react-app/
+            - name: "Printing Folders"
+              run: ls
