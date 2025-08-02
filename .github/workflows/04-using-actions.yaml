@@ -6,10 +6,15 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - name: "Checkout code"
-              uses: actions/checkout@v3
+              uses: actions/checkout@v3 # The uses command will help to avoid execute multiple runs (actions/checkout@v3 this is like a template code helping to checkout to our codebase in virtual machine)
             
             - name: "Printing Folders"
               run: |
                 cd ${{ github.workspace }}
                 echo "Project Folder : $(pwd)"
-                ls -la 
+                ls -la
+            - name: "Setup Node"
+              uses: actions/setup-node@v4 #This will setup node env in the virtual system
+            - name: "Go to project folder and Install dependencies"
+              working-directory: learn-gh-actions/simple-react-app/ #This will set the current working directory
+              run: npm ci
