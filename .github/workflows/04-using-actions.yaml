@@ -15,6 +15,8 @@ jobs:
                 ls -la
             - name: "Setup Node"
               uses: actions/setup-node@v4 #This will setup node env in the virtual system
+              with:
+                node-version: '20.x'
             - name: "Go to project folder and Install dependencies"
-              working-directory: learn-gh-actions/simple-react-app/ #This will set the current working directory
+              working-directory: simple-react-app #This will set the current working directory
               run: npm ci
