@@ -1,0 +1,12 @@
+name: 05 - 01 - Event Filter and Activity Types
+on:
+    pull_request: #Event here is pull_request
+        types: [opened, synchronize] # These are the ativity types which when triggered will trigger the workflow
+        branches: # The branches specify the base branch/es to which the PR is raised to be merged with. Here branches is the event filter.
+            - main 
+jobs:
+    echo:
+        runs-on: ubuntu-latest
+        steps:
+            - name: print message
+              run: echo "Running whenever a PR is opened or synced And base branch is main"
