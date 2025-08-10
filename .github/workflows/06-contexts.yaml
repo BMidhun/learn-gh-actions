@@ -29,7 +29,8 @@ jobs:
             
             - name: Print Env Variables
               env:
-                MY_OVERWRITTEN_VAR: step # This value of step will only be available in the step Print Env Variables outside them will be 
+                MY_OVERWRITTEN_VAR: step # This value of step will only be available in the step Print Env Variables outside them will be the old value
+                
               run: |
                 echo "Workflow env: ${{ env.MY_WORKFLOW_VAR }}"
                 echo "Workflow env: ${{ env.MY_OVERWRITTEN_VAR }}"
