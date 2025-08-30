@@ -15,7 +15,8 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - name: "[debug] Print start-up"
-              if: ${{ inputs.debug == true }}
+              if: ${{ inputs.debug == true }}  
+            #   You can write the above expression without '${ {} }' for eg: inputs.debug == true is also same as above
               run: |
                 echo "Tiggered by: ${{ github.event_name }}"
                 echo "Branch: ${{ github.ref }}"
