@@ -8,6 +8,7 @@ on:
         required: false
         default: false
         type: boolean
+run-name: 07 - Expressions | DEBUG - ${{ inputs.debug }}
 
 jobs:
     echo:
