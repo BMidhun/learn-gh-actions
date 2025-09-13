@@ -2,7 +2,7 @@ name: "08.1 Github environment"
 # Go to github.com -> repository -> settings -> environments -> create an env -> create an env variable
 
 on:
-    push:
+    # push:
     workflow_dispatch:
 
 env:
