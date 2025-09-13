@@ -7,6 +7,8 @@ jobs:
   echo1:
     runs-on: ubuntu-latest
     steps:
+      - name: "Sleep for 2 minute"
+        run: sleep 120
       - name: "Failing step, should exit with a non-zero code"
         run: exit 1
 
