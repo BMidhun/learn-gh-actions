@@ -12,9 +12,7 @@ jobs:
       - name: Print PR labels
         run: |
             echo "Labels on this PR:"
-            for label in $(jq -r '.labels[].name' <<< '${{ toJson(github.event.pull_request) }}'); do
-            echo "- $label"
-            done
+            echo '${{ toJson(github.event.pull_request.labels) }}' | jq -r '.[] | .name'
 
       - name: Bug step
         if: ${{ failure() && contains(github.event.pull_request.title, 'fix') }}
