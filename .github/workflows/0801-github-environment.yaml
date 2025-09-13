@@ -1,0 +1,32 @@
+name: "08.1 Github environment"
+# Go to github.com -> repository -> settings -> environments -> create an env -> create an env variable
+
+on:
+    push:
+    workflow_dispatch:
+
+env:
+    GLOBAL_ENV: "This is a global env"
+
+jobs:
+    echojob1:
+        runs-on: "ubuntu-latest"
+        env:
+            JOB_ENV_VAR: "This is a job env var"
+        steps:
+            - name: "Display non env vars"
+              run: |
+                echo "This is a global env defined in the workflow scope: ${{ env.GLOBAL_ENV }}"
+                echo "This is a job env defined in the job scope: ${{ env.JOB_ENV_VAR }}"
+                echo "This is the test env var defined in test environment: ${{ env.TEST_ENV_VAR }}"
+    echojob2:
+        runs-on: "ubuntu-latest"
+        environment: "testenv"
+        env:
+            JOB_ENV_VAR: "This a job env var defined in job2"
+        steps:
+            - name: "Display ${{ github.env }} var"
+              run: |
+               echo "This is a global env defined in the workflow scope: ${{ env.GLOBAL_ENV }}"
+               cho "This is a job env defined in the job scope: ${{ env.JOB_ENV_VAR }}"
+               echo "This is the test env var defined in test environment: ${{ env.TEST_ENV_VAR }}"
