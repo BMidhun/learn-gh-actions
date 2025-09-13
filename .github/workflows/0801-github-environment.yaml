@@ -21,12 +21,12 @@ jobs:
                 echo "This is the test env var defined in test environment: ${{ env.TEST_ENV_VAR }}"
     echojob2:
         runs-on: "ubuntu-latest"
-        environment: "testenv"
+        environment: "testenv" # environment basically means the environment in which the workflow should be executed like test, staging, or production
         env:
             JOB_ENV_VAR: "This a job env var defined in job2"
         steps:
             - name: "Display ${{ github.env }} var"
               run: |
                echo "This is a global env defined in the workflow scope: ${{ env.GLOBAL_ENV }}"
-               cho "This is a job env defined in the job scope: ${{ env.JOB_ENV_VAR }}"
+               echo "This is a job env defined in the job scope: ${{ env.JOB_ENV_VAR }}"
                echo "This is the test env var defined in test environment: ${{ env.TEST_ENV_VAR }}"
