@@ -8,6 +8,7 @@ on:
             pass-unit-tests:
                 type: boolean
                 default: false
+                description: "You can toggle this on Github workflow UI"
 
 jobs:
 
