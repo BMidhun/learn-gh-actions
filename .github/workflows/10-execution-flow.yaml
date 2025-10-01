@@ -45,7 +45,7 @@ jobs:
             - deploy-non-prod
         steps:
             - name: E2E tests
-              run: "Running E2E tests"
+              run: echo "Running E2E tests"
 
 
     
