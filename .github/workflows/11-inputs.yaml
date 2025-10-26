@@ -10,7 +10,9 @@ on:
             
             target:
                 type: environment
-                description: "Which environment the workflow will target"
+                description: "Which environment the workflow will target" 
+                # The environment value will be taken from # Go to github.com -> repository -> settings -> environments -> create an env -> create an env variable
+                #  Refer 0801 - github-environment.yaml 
 
             tag:
                 type: choice
@@ -30,6 +32,7 @@ jobs:
     
     deploy:
         runs-on: ubuntu-latest
+        if: ${{ !inputs.dry-run }}
         needs: 
             - build
         environment: ${{inputs.target}}
