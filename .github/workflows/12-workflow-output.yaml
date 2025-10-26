@@ -1,4 +1,5 @@
-name: 12 - Working with Outputs
+name: 12 - Working with Outputs 
+# Outputs are named values passed between workflow steps or returned to calling workflows.
 on:
     workflow_dispatch: 
         inputs:
@@ -13,13 +14,23 @@ jobs:
         runs-on: ubuntu-latest
         outputs:
             build-status: ${{ steps.build.outputs.status }}
+
+        # steps don't share the same output file
         steps:
             - name: Print GITHUB_OUTPUT path
               run: echo "$GITHUB_OUTPUT"
             
             - name: Build
+            #  we need an id to access the output defined in a step
               id: build
-              run: echo "status=${{ inputs.build-status }}" >> "$GITHUB_OUTPUT" 
+              run: |
+                 echo "$GITHUB_OUTPUT" 
+                 echo "status=${{ inputs.build-status }}" >> "$GITHUB_OUTPUT" 
+                 echo "output1=value1" >> "$GITHUB_OUTPUT"
+                 echo "output2=value2" >> "$GITHUB_OUTPUT"
+                 cat $GITHUB_OUTPUT
+                 echo "mistake=value" > "$GITHUB_OUTPUT"
+            # echo "mistake=value" > "$GITHUB_OUTPUT" this command actually overrides everything on GITHUB_OUTPUT file
     
     deploy:
         runs-on: ubuntu-latest
