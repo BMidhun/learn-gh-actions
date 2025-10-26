@@ -16,7 +16,7 @@ jobs:
             build-status: ${{ steps.build.outputs.status }}
             output1: ${{ steps.build.outputs.output1 }}
             output2: ${{ steps.build.outputs.output2 }}
-            mistake: ${{ steps.build.outputs.mistake }}
+            mistake: ${{ steps.mistakeStep.outputs.mistake }}
 
         # steps don't share the same output file
         steps:
@@ -36,6 +36,7 @@ jobs:
             # echo "mistake=value" > "$GITHUB_OUTPUT" this command actually overrides everything on GITHUB_OUTPUT file. Hence deploy job will be skipped as build-status output value is undefined
             
             - name: mistake step
+              id: mistakeStep
               run: |
                 echo $GITHUB_OUTPUT
                 echo "mistake=true" >> "$GITHUB_OUTPUT"
