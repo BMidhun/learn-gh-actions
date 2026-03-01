@@ -1,0 +1,44 @@
+# Artifacts are used to share data btw jobs and store data after workflows have completed
+# Retained for up to 90 days (default is 90, configurable between 1–90). Retained for up to 7 days of inactivity, but in practice caches can persist longer if accessed. The cache is automatically deleted if not used for 7 days.
+# Managed via two actions upload-artifact and download-artifact
+# Can only be used in single workflow which means you cannot share artifacts across different workflows. 
+name: 14 - Working with artifacts
+on:
+    workflow_dispatch: 
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        defaults:
+            run:
+                working-directory: l3-caching
+        # build job will include uploading the artifacts
+        steps:
+            - name: Checkout to code
+              uses: actions/checkout@v4
+            - name: Setup Node
+              uses: actions/setup-node@v3
+              with: 
+                node-version: "20.x"
+            - name: Install dependencies
+              run: npm ci
+            - name: Create build
+              run: npm run build
+            - name: Upload artifacts
+              uses: actions/upload-artifact@v3
+              with:
+                name: build
+                path: l3-caching/dist
+
+    deploy:
+        # deploy job will include downloading the artifacts
+        needs: build
+        runs-on: ubuntu-latest
+        steps:
+          - name: Download artifacts
+            uses: actions/download-artifact@v3
+            with:
+                name: build
+                path: dist
+          - name: Display build contents
+            run: ls -r
