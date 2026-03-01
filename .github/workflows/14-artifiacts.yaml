@@ -41,4 +41,6 @@ jobs:
                 name: build
                 path: dist
           - name: Display build contents
-            run: ls -r
+            run: |
+                cd dist
+                ls -r
