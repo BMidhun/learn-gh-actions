@@ -1,0 +1,55 @@
+name: "L3 Caching Workflow"
+on:
+    workflow_dispatch: 
+        inputs:
+            use-cache:
+                type: boolean
+                default: true
+                description: "Whether to execute cache step"
+
+            node-version:
+                type: choice
+                default: "22.x"
+                options:
+                  - "22.x"
+                  - "20.x"
+                  - "19.x"
+                description: Select the node version
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        defaults:
+            run:
+                working-directory: l3-caching
+        steps:
+            - name: Checkout to the code
+              uses: actions/checkout@v4
+            
+            - name: Setup Node
+              uses: actions/setup-node@v3
+              with:
+                node-version: ${{ inputs.node-version }}
+
+            - name: Cache Installation package
+              uses: actions/cache@v3
+              id: cache
+              with:
+                path: l3-caching/node_modules # path to cache
+                key: deps-node-modules-${{ hashFiles('l3-caching/package-lock.json') }} # key to cache
+                # flag to enable caching or not
+              if: ${{ inputs.use-cache }} 
+
+            - name: Install dependencies
+            #   if the step with id cache returns cache-hit output with true, then we will skip installing the package. 
+              if: steps.cache.outputs.cache-hit != 'true'
+              run: npm ci
+
+            - name: Testing
+              run : npm run test
+
+            - name: Building app
+              run: npm run build
+            
+            - name: Deploying to nonprod
+              run: echo "Deploying to non prod"
