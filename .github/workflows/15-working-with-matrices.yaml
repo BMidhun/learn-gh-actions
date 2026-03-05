@@ -1,0 +1,33 @@
+# In GitHub Actions, a “matrix” is a way to run the same job multiple times with different settings (like operating systems or language versions) without writing separate jobs for each. 
+# It saves effort and ensures your code is tested across all combinations automatically.
+
+name: "Working with matrices"
+
+on: 
+    workflow_dispatch: 
+
+jobs:
+    building-on-different-version:
+        # selects the current os from the matix
+        name: running on ${{matrix.os}} with node version ${{matrix.node-version}}
+        runs-on: ${{ matrix.os }}
+        strategy:
+            matrix:
+                os:
+                    - ubuntu-latest
+                    - windows-latest
+                node-version: [20.x, 21.x, 22.x]
+# Here multiple jobs with combination of ubuntu-latest-node-v20.x,ubuntu-latest-node-v21.x,ubuntu-latest-node-v22.x, windows-latest-20.x, windows-latest-21.x, windows-latest-22.x
+        steps:
+            - name: Code checkout
+              uses: actions/checkout@v4
+            
+            - name: Setup Node
+              uses: actions/setup-node@v4
+              with:
+                node-version: ${{matrix.node-version}}
+             
+            - name: Display node version
+              run: node -v
+
+
