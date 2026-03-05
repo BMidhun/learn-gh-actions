@@ -46,5 +46,24 @@ jobs:
              
             - name: Display node version
               run: node -v
+    include-example:
+        runs-on: ubuntu-latest
+        strategy:
+          matrix:
+              color: [red, green]
+              shape: [square, triangle]
+              include:
+                # this include step will add new parameter to all the combinations
+                - size: medium
+                #  this include says for all color red combinations - the size will be large
+                - color: red
+                  size: large
+                # this include says for the combination green triangle the size will be small always
+                - color: green
+                  shape: triangle
+                  size: small
+        steps:
+          - name: Display items
+            run: echo "${{matrix.color}} ${{ matrix.shape}} ${{ matrix.size }}"
 
 
