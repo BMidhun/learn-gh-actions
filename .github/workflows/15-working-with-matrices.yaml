@@ -1,7 +1,7 @@
 # In GitHub Actions, a “matrix” is a way to run the same job multiple times with different settings (like operating systems or language versions) without writing separate jobs for each. 
 # It saves effort and ensures your code is tested across all combinations automatically.
 
-name: "Working with matrices"
+name: "15 - Working with matrices"
 
 on: 
     workflow_dispatch: 
