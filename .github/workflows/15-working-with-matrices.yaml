@@ -5,6 +5,11 @@ name: "15 - Working with matrices"
 
 on: 
     workflow_dispatch: 
+        inputs:
+          fail-fast-input:
+            default: false
+            type: boolean
+            description: Enable fail fast
 
 jobs:
     building-on-different-version:
@@ -63,6 +68,13 @@ jobs:
                 - color: green
                   shape: triangle
                   size: small
+              # exclude is processed before the include block. So basically exclude will be worked on matrix defined and not on the include definitions
+              exclude:
+                # This removes the combination red and triangle
+                - color: red
+                  shape: triangle
+                # Removes every combinations including green
+                - color: green
         steps:
           - name: Display items
             run: echo "${{matrix.color}} ${{ matrix.shape}} ${{ matrix.size }}"
