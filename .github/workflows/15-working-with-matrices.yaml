@@ -18,6 +18,7 @@ jobs:
                     - windows-latest
                 node-version: [20.x, 21.x, 22.x]
 # Here multiple jobs with combination of ubuntu-latest-node-v20.x,ubuntu-latest-node-v21.x,ubuntu-latest-node-v22.x, windows-latest-20.x, windows-latest-21.x, windows-latest-22.x
+# If any of the combination fails then, every jobs with all combination will be cancelled.
         steps:
             - name: Code checkout
               uses: actions/checkout@v4
