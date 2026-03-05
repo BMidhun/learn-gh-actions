@@ -47,6 +47,7 @@ jobs:
             - name: Display node version
               run: node -v
     include-example:
+        name: ${{matrix.color}} ${{matrix.shape}} ${{matrix.size}}
         runs-on: ubuntu-latest
         strategy:
           matrix:
