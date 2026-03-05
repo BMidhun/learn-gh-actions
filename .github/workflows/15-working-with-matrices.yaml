@@ -9,16 +9,26 @@ on:
 jobs:
     building-on-different-version:
         # selects the current os from the matix
+        # Here multiple jobs with combination of ubuntu-latest-node-v20.x,ubuntu-latest-node-v21.x,ubuntu-latest-node-v22.x, windows-latest-20.x, windows-latest-21.x, windows-latest-22.x
+        # If any of the combination fails then, every jobs with all combination will be cancelled. This is called fail-fast strategy
         name: running on ${{matrix.os}} with node version ${{matrix.node-version}}
         runs-on: ${{ matrix.os }}
         strategy:
+            fail-fast: false # This is true by default. But we can set it to false so that we can allow other combinations to run except for the failed combination
             matrix:
                 os:
                     - ubuntu-latest
                     - windows-latest
                 node-version: [20.x, 21.x, 22.x]
-# Here multiple jobs with combination of ubuntu-latest-node-v20.x,ubuntu-latest-node-v21.x,ubuntu-latest-node-v22.x, windows-latest-20.x, windows-latest-21.x, windows-latest-22.x
-# If any of the combination fails then, every jobs with all combination will be cancelled.
+                # The include option allows us to add more combination into the matrix apart from the defined. We can optionally add tags to identify them. 
+                #  This done if we only want certain combinations like say ubuntu-latest-node-16.x 
+                include:
+                  - os: ubuntu-latest
+                    node-version: 18.x
+                  - os: ubuntu-latest
+                    node-version: 16.x
+                    tag: experimental
+
         steps:
             - name: Code checkout
               uses: actions/checkout@v4
@@ -27,6 +37,12 @@ jobs:
               uses: actions/setup-node@v4
               with:
                 node-version: ${{matrix.node-version}}
+            
+            - name: Fail experimental version manually
+              if: matrix.tag == 'experimental'
+              run: |
+                 echo "Failing on experimental tag ${{ matrix.node-version }}"
+                 exit 1
              
             - name: Display node version
               run: node -v
